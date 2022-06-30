@@ -1,14 +1,17 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { DarkModeSwitch } from "react-toggle-dark-mode";
+import { useRouter, NextRouter } from "next/router";
 
-import { useColorMode } from "../context/colorContext";
 import ThemeSwitch from "./component/themeSwitch";
 import LanguageSwitch from "./component/languageSwitch";
+import localeFile from "../locale/index.json";
 
 function Header() {
+  const router: NextRouter = useRouter();
+  const { locale } = router;
+  const currentLocale = locale ?? "fa";
+
   return (
     <Box
       sx={{
@@ -28,7 +31,8 @@ function Header() {
           lineHeight: "1.6",
         }}
       >
-        User settings
+        {/* @ts-ignore: Unreachable code error*/}
+        {localeFile[currentLocale].userSettings}
       </Typography>
       <Box
         sx={{
@@ -37,7 +41,7 @@ function Header() {
           gap: "16px",
         }}
       >
-        <LanguageSwitch />
+        <LanguageSwitch locale={currentLocale} />
         <ThemeSwitch />
       </Box>
     </Box>

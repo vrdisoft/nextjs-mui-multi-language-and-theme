@@ -1,8 +1,19 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useRouter, NextRouter } from "next/router";
 
-function LanguageSwitch() {
+type LanguageSwitchType = {
+  locale: string;
+}
+
+function LanguageSwitch({ locale }: LanguageSwitchType) {
+  const router: NextRouter = useRouter();
+  const { pathname, asPath, query } = router;
+  const changeLocale = (nextLocale: string) => {
+    router.push({ pathname, query }, asPath, { locale: nextLocale });
+  }
+
   return (
     <Box
       sx={{
@@ -15,7 +26,9 @@ function LanguageSwitch() {
         color="warning"
         sx={{
           transition: "all 0.5s ease 0s",
+          color: locale === "en" ? "" : "rgb(121, 131, 142)",
         }}
+        onClick={() => { changeLocale("en") }}
       >
         English
       </Button>
@@ -24,7 +37,9 @@ function LanguageSwitch() {
         color="warning"
         sx={{
           transition: "all 0.5s ease 0s",
+          color: locale === "fa" ? "" : "rgb(121, 131, 142)",
         }}
+        onClick={() => { changeLocale("fa") }}
       >
         فارسی
       </Button>
