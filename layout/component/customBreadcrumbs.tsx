@@ -1,16 +1,14 @@
 import * as React from "react";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
-import Link from 'next/link'
-import { useRouter, NextRouter } from "next/router";
+import Link from "next/link";
 
 import { getRoute } from "../../route/routes";
-import localeFile from "../../locale/index.json";
+import { getTitle } from "../../helper/getTitle";
+import { getLocaleAndPath } from "../../helper/getLocaleAndPath";
 
 function CustomBreadcrumbs() {
-  const router: NextRouter = useRouter();
-  const { pathname, locale } = router;
-  const currentLocale = locale ?? "fa";
+  const { pathname } = getLocaleAndPath();
 
   const genrateBreadcrumbs = () => {
     const currentRoute = getRoute(pathname);
@@ -21,9 +19,8 @@ function CustomBreadcrumbs() {
           href={breadcrumbRoute.path}
           key={breadcrumbRoute.path}
         >
-          <a  style={{ color: "rgb(121, 131, 142)" }}>
-            {/* @ts-ignore: Unreachable code error*/}
-            {localeFile[currentLocale][breadcrumbRoute.title]}
+          <a style={{ color: "rgb(121, 131, 142)" }}>
+            {getTitle(breadcrumbRoute.title)}
           </a>
         </Link>
       )
@@ -39,8 +36,7 @@ function CustomBreadcrumbs() {
         }}
         key={currentRoute.path}
       >
-        {/* @ts-ignore: Unreachable code error*/}
-        {localeFile[currentLocale][currentRoute.title]}
+        {getTitle(currentRoute.title)}
       </Typography>
     )
     return elements;

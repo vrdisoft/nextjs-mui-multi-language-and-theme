@@ -2,11 +2,13 @@
   "fa": {
     "userSettings": "تنظیمات کاربری",
     "home": "خانه",
-    "user": "کاربر"
+    "user": "کاربر",
+    "socials":"مسیرهای ارتباطی"
   },
   "en": {
     "userSettings": "User settings",
     "home": "Home",
-    "user": "User"
+    "user": "User",
+    "socials":"Socials"
   }
 }

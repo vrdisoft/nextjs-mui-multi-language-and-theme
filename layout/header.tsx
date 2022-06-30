@@ -1,16 +1,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useRouter, NextRouter } from "next/router";
 
 import ThemeSwitch from "./component/themeSwitch";
 import LanguageSwitch from "./component/languageSwitch";
-import localeFile from "../locale/index.json";
+import { getRoute } from "../route/routes";
+import { getTitle } from "../helper/getTitle";
+import { getLocaleAndPath } from "../helper/getLocaleAndPath";
 
 function Header() {
-  const router: NextRouter = useRouter();
-  const { locale } = router;
-  const currentLocale = locale ?? "fa";
+  const { locale, pathname } = getLocaleAndPath();
+  const currentRoute = getRoute(pathname);
 
   return (
     <Box
@@ -19,6 +19,7 @@ function Header() {
         width: "100%",
         justifyContent: "space-between",
         alignItems: "center",
+        height: "57px",
       }}
     >
       <Typography
@@ -31,8 +32,7 @@ function Header() {
           lineHeight: "1.6",
         }}
       >
-        {/* @ts-ignore: Unreachable code error*/}
-        {localeFile[currentLocale].userSettings}
+        {getTitle(currentRoute.title)}
       </Typography>
       <Box
         sx={{
@@ -41,7 +41,7 @@ function Header() {
           gap: "16px",
         }}
       >
-        <LanguageSwitch locale={currentLocale} />
+        <LanguageSwitch locale={locale} />
         <ThemeSwitch />
       </Box>
     </Box>

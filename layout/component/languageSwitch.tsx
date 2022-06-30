@@ -19,7 +19,6 @@ function LanguageSwitch({ locale }: LanguageSwitchProps) {
       sx={{
         display: "flex",
         gap: "16px",
-        height: "57px",
       }}
     >
       <Button
