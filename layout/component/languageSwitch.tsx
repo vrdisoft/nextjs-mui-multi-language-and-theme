@@ -3,11 +3,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useRouter, NextRouter } from "next/router";
 
-type LanguageSwitchType = {
+type LanguageSwitchProps = {
   locale: string;
 }
 
-function LanguageSwitch({ locale }: LanguageSwitchType) {
+function LanguageSwitch({ locale }: LanguageSwitchProps) {
   const router: NextRouter = useRouter();
   const { pathname, asPath, query } = router;
   const changeLocale = (nextLocale: string) => {
@@ -19,6 +19,7 @@ function LanguageSwitch({ locale }: LanguageSwitchType) {
       sx={{
         display: "flex",
         gap: "16px",
+        height: "57px",
       }}
     >
       <Button

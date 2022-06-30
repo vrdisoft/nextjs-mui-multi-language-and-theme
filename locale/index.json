@@ -1,8 +1,12 @@
 {
   "fa": {
-    "userSettings": "تنظیمات کاربری"
+    "userSettings": "تنظیمات کاربری",
+    "home": "خانه",
+    "user": "کاربر"
   },
   "en": {
-    "userSettings": "User settings"
+    "userSettings": "User settings",
+    "home": "Home",
+    "user": "User"
   }
 }

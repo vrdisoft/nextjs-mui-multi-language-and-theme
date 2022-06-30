@@ -2,13 +2,14 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter, NextRouter } from "next/router";
 
 import Header from "./header";
-import { useColorMode, ColorModeProvider } from "../context/colorContext";
+import { useColorMode } from "../context/colorContext";
 import { darkTheme } from "../themes/dark";
 import { lightTheme } from "../themes/light";
+import CustomBreadcrumbs from "./component/customBreadcrumbs";
 
 function Layout({ children }: { children: any }) {
   const { colorMode } = useColorMode();
@@ -49,6 +50,7 @@ function Layout({ children }: { children: any }) {
           <Box>
             <Header />
           </Box>
+          <CustomBreadcrumbs />
           <Box>{children}</Box>
         </Box>
       </Container>
