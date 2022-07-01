@@ -2,22 +2,30 @@ import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Collapse from '@mui/material/Collapse';
+import Collapse from "@mui/material/Collapse";
+import Box from "@mui/material/Box";
+import { GetServerSideProps } from "next";
 
 import { getTitle } from "../../helper/getTitle";
 import { getLocaleAndPath } from "../../helper/getLocaleAndPath";
 import { userSettings } from "../../api/userSettings";
 import AddSocial from "../../component/userSettings/addSocial";
 import GenerateIcon from "../../component/icon/GenerateIcon";
+import List from "../../component/list";
+import { ListItemType } from "../../component/list/listItem";
+import { useAppState } from "../../context/socialStateContext";
 
-function Settings() {
+function Settings({ socialList }: { socialList: ListItemType[] }) {
   const { pathname } = getLocaleAndPath();
   const [showAddSocial, setShowAddSocial] = React.useState(false);
+  const [socialData, setSocialData] = React.useState(socialList ?? []);
+  const appState = useAppState();
+
   useEffect(() => {
     userSettings().then(res => {
-      console.log(res.data);
+      setSocialData(res.data)
     });
-  }, []);
+  }, [appState.reload]);
 
   const onClickAddSocial = () => {
     setShowAddSocial(true);
@@ -59,20 +67,18 @@ function Settings() {
 
         {getTitle("addSocial")}
       </Button>
-      <Collapse in={showAddSocial}>
-        <AddSocial onShowAddSocial={(show: boolean) => { setShowAddSocial(show) }} />
-      </Collapse>
-      <Paper
+      <Box
         sx={{
-          marginTop: "20px",
-          padding: "24px",
-          borderRadius: "16px",
-          backgroundColor: "action.disabled",
-          boxShadow: "none",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
         }}
       >
-        Home
-      </Paper>
+        <Collapse in={showAddSocial}>
+          <AddSocial onShowAddSocial={(show: boolean) => { setShowAddSocial(show) }} />
+        </Collapse>
+        <List items={socialData} />
+      </Box>
     </Paper >
   );
 }

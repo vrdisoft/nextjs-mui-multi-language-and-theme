@@ -12,8 +12,10 @@ import { useForm, Controller } from 'react-hook-form';
 
 import { getTitle, getAllTitle } from "../../helper/getTitle";
 import GenerateIcon from "../icon/GenerateIcon";
-import { addUserSettings, userSettings } from "../../api/userSettings";
+import { addUserSettings, editUserSettings } from "../../api/userSettings";
 import { UserSettingType } from "../../helper/api/userSettingsRepo";
+import { useDispatch } from "../../context/socialDispatcherContext";
+import { createSocial, editSocial } from "../../stateManager/actionCreator";
 
 type optionType = {
   label: string;
@@ -25,35 +27,68 @@ type FormValues = {
   type: optionType;
 }
 
-type AddSocialProps = {
-  onShowAddSocial: (show: boolean) => void;
+type SocialItemType = {
+  id: string;
+  social: string;
+  url: string;
 }
 
-function AddSocial({ onShowAddSocial }: AddSocialProps) {
-   /* @ts-ignore: Unreachable code error*/
+type AddSocialProps = {
+  onShowAddSocial: (show: boolean) => void;
+  socialItem?: SocialItemType;
+}
+
+function AddSocial({ onShowAddSocial, socialItem }: AddSocialProps) {
+  /* @ts-ignore: Unreachable code error*/
   const [socialType, setSocialType] = React.useState<optionType>(null);
   const options = React.useRef<optionType[]>([
-    { label: "twitter", icon: "Twitter" },
-    { label: "instagram", icon: "Instagram" },
-    { label: "facebook", icon: "Facebook" },
-    { label: "telegram", icon: "Telegram" },
-    { label: "linkedIn", icon: "LinkedIn" },
-    { label: "website", icon: "Public" },
+    { label: "Twitter", icon: "Twitter" },
+    { label: "Instagram", icon: "Instagram" },
+    { label: "Facebook", icon: "Facebook" },
+    { label: "Telegram", icon: "Telegram" },
+    { label: "LinkedIn", icon: "LinkedIn" },
+    { label: "Website", icon: "Public" },
   ]).current;
-
+  const dispatch = useDispatch();
   const allTitle = getAllTitle();
-  const { handleSubmit, control, formState, reset, resetField, getValues } = useForm<FormValues>({ mode: "onChange", reValidateMode: "onSubmit" });
+  const { handleSubmit, control, formState, reset } = useForm<FormValues>({ mode: "onChange", reValidateMode: "onSubmit" });
+
+  React.useEffect(() => {
+    if (socialItem) {
+      reset({ link: socialItem.url, type: { label: socialItem.social, icon: socialItem.social } });
+      setSocialType({ label: socialItem.social, icon: socialItem.social });
+    }
+  }, []);
 
   const onSubmit = (data: FormValues) => {
     const socialData: UserSettingType = {
-      id: 0,
+      id: socialItem ? socialItem.id : "0",
       social: data?.type?.label,
       url: data?.link
     }
+
+    if (socialItem) {
+      updetUserSettings(socialData);
+    }
+    else {
+      insertUserSettings(socialData);
+    }
+
+  };
+
+  const insertUserSettings = (socialData: UserSettingType) => {
     addUserSettings(socialData).then(data => {
+      dispatch(createSocial());
       resetForm();
     });
-  };
+  }
+
+  const updetUserSettings = (socialData: UserSettingType) => {
+    editUserSettings(socialData.id.toString(), socialData).then(data => {
+      dispatch(editSocial());
+      resetForm();
+    });
+  }
 
   const onChangeSocialType = (value: optionType) => {
     setSocialType(value);
@@ -65,8 +100,8 @@ function AddSocial({ onShowAddSocial }: AddSocialProps) {
 
   const resetForm = () => {
     reset({ link: "", type: undefined });
-     /* @ts-ignore: Unreachable code error*/
-    setSocialType(null/*{ label: "", icon: "" }*/);
+    /* @ts-ignore: Unreachable code error*/
+    setSocialType(null);
     onShowAddSocial(false);
   }
 
@@ -90,7 +125,7 @@ function AddSocial({ onShowAddSocial }: AddSocialProps) {
             fontSize: "0.75rem",
             lineHeight: "1.57",
           }} >
-          {` ${getTitle("addSocial")} ${getTitle(socialType?.label)}`}
+          {` ${getTitle(socialItem ? "editSocial" : "addSocial")} ${getTitle(socialType?.label)}`}
         </Typography>
       </Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -168,13 +203,14 @@ function AddSocial({ onShowAddSocial }: AddSocialProps) {
           </Grid>
         </Grid>
       </form>
-      <CardActions
+      <Box
         sx={{
           marginTop: "16px",
           display: "flex",
           alignItems: "center",
           justifyContent: "end",
           padding: 0,
+          gap: "8px",
         }}
       >
         <Button
@@ -202,9 +238,9 @@ function AddSocial({ onShowAddSocial }: AddSocialProps) {
           }}
           size="small"
         >
-          {` ${getTitle("submitSocial")} ${getTitle(socialType?.label)}`}
+          {` ${getTitle(socialItem ? "editSocial" : "submitSocial")} ${getTitle(socialType?.label)}`}
         </Button>
-      </CardActions>
+      </Box>
     </Paper>
   );
 }

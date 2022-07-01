@@ -21,10 +21,13 @@ function post(
   const { id, url, social } = req.body;
   if (!url || !social) {
     return res.status(422).json({ message: "invalid data" });
-    return;
   }
+  if (userSettingsRepo.getByUrl(url, social)) {
+    return res.status(404).json({ message: "duplicate-keys" });
+  }
+
   const userSetting: UserSettingType = {
-    id: 0,
+    id: "0",
     url: url,
     social: social
   }
