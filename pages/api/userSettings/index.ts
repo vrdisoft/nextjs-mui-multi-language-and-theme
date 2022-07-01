@@ -29,7 +29,7 @@ function post(
     social: social
   }
   userSettingsRepo.create(userSetting);
-  return res.status(200);
+  return res.status(200).json(userSetting);
 }
 
 function get(

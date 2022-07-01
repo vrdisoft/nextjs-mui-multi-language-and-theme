@@ -7,3 +7,10 @@ export function getTitle(key: string): string {
   {/* @ts-ignore: Unreachable code error*/ }
   return localeFile[currentLocale][key] ?? "";
 }
+
+export function getAllTitle(): object {
+  const currentLocale = getLocaleAndPath().locale;
+
+  {/* @ts-ignore: Unreachable code error*/ }
+  return localeFile[currentLocale] ?? {};
+}

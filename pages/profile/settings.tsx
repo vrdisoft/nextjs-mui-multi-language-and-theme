@@ -1,6 +1,28 @@
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Collapse from '@mui/material/Collapse';
+
+import { getTitle } from "../../helper/getTitle";
+import { getLocaleAndPath } from "../../helper/getLocaleAndPath";
+import { userSettings } from "../../api/userSettings";
+import AddSocial from "../../component/userSettings/addSocial";
+import GenerateIcon from "../../component/icon/GenerateIcon";
 
 function Settings() {
+  const { pathname } = getLocaleAndPath();
+  const [showAddSocial, setShowAddSocial] = React.useState(false);
+  useEffect(() => {
+    userSettings().then(res => {
+      console.log(res.data);
+    });
+  }, []);
+
+  const onClickAddSocial = () => {
+    setShowAddSocial(true);
+  }
+
   return (
     <Paper
       sx={{
@@ -12,17 +34,34 @@ function Settings() {
         borderRadius: "16px",
       }}
     >
-      <Paper
+      <Typography
+        variant="caption"
         sx={{
-          marginTop: "20px",
-          padding: "24px",
-          borderRadius: "16px",
-          backgroundColor: "action.selected",
-          boxShadow: "none",
+          margin: "0px 0px 0.35em",
+          fontFamily: "iranyekan, Helvetica, Arial, sans-serif",
+          fontWeight: "400",
+          fontSize: "0.642857rem",
+          lineHeight: "1.66",
+          display: "block",
+          color: "rgb(121, 131, 142)",
         }}
       >
-        Home
-      </Paper>
+        {getTitle("socials")}
+      </Typography>
+      <Button
+        variant="text"
+        color="warning"
+        size="small"
+        startIcon={<GenerateIcon variation="Add" />}
+        onClick={onClickAddSocial}
+        disabled={showAddSocial}
+      >
+
+        {getTitle("addSocial")}
+      </Button>
+      <Collapse in={showAddSocial}>
+        <AddSocial onShowAddSocial={(show: boolean) => { setShowAddSocial(show) }} />
+      </Collapse>
       <Paper
         sx={{
           marginTop: "20px",
@@ -34,7 +73,7 @@ function Settings() {
       >
         Home
       </Paper>
-    </Paper>
+    </Paper >
   );
 }
 export default Settings;

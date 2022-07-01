@@ -3,12 +3,40 @@
     "userSettings": "تنظیمات کاربری",
     "home": "خانه",
     "user": "کاربر",
-    "socials":"مسیرهای ارتباطی"
+    "socials": "مسیرهای ارتباطی",
+    "addSocial": "افزودن مسیر ارتباطی",
+    "social": "مسیر ارتباطی",
+    "link": "لینک",
+    "type": "نوع",
+    "cancel": "انصراف",
+    "submitSocial": "ثبت مسیر ارتباطی",
+    "twitter": "توییتر",
+    "instagram": "اینستاگرام",
+    "facebook": "فیسبوک",
+    "telegram": "تلگرم",
+    "linkedIn": "لینکدین",
+    "website": "وبسایت",
+    "fieldRequired": "وارد کردن این فیلد اجباری است",
+    "fillCorrectURL":"محتویات این فیلد باید از جنس آدرس اینترنتی باشد"
   },
   "en": {
     "userSettings": "User settings",
     "home": "Home",
     "user": "User",
-    "socials":"Socials"
+    "socials": "Socials",
+    "addSocial": "Add Social",
+    "social": "Social",
+    "link": "Link",
+    "type": "Type",
+    "cancel": "Cancel",
+    "submitSocial": "Submit Social",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "telegram": "Telegram",
+    "linkedIn": "LinkedIn",
+    "website": "Website",
+    "fieldRequired": "this field is Required",
+    "fillCorrectURL":"Please fill correct URL"
   }
 }

@@ -6,7 +6,7 @@ export type UserSettingType = {
   social: string;
 }
 
-let userSettings = require('../../data/userSettinds.json') as UserSettingType[];
+let userSettings = require('./data/userSettinds.json') as UserSettingType[];
 
 function create(userSetting: UserSettingType) {
   userSetting.id = userSettings.length ? Math.max(...userSettings.map(x => x.id)) + 1 : 1;
@@ -34,7 +34,7 @@ function _delete(id: number) {
 }
 
 function saveData() {
-  fs.writeFileSync('data/users.json', JSON.stringify(userSettings, null, 2));
+  fs.writeFileSync('data/userSettinds.json', JSON.stringify(userSettings, null, 2));
 }
 
 export const userSettingsRepo = {

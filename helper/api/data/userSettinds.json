@@ -8,10 +8,5 @@
     "id": "2",
     "url": "http://localhost:3000/profile/settings",
     "social": "Facebook"
-  },
-  {
-    "id": 3,
-    "url": " http://www.isaco.ir",
-    "social": "instagram"
   }
 ]
