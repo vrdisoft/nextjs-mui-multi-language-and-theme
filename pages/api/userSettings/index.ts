@@ -22,6 +22,7 @@ function post(
   if (!url || !social) {
     return res.status(422).json({ message: "invalid data" });
   }
+  
   if (userSettingsRepo.getByUrl(url, social)) {
     return res.status(404).json({ message: "duplicate-keys" });
   }

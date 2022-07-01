@@ -21,7 +21,8 @@
     "edit": "ویرایش",
     "delete": "حذف",
     "editSocial": "ویرایش مسیر ارتباطی",
-    "areYouSure":"آیا از تصمیم خود مطمئن هستید؟"
+    "areYouSure":"آیا از تصمیم خود مطمئن هستید؟",
+    "duplicate":"تکرایست"
   },
   "en": {
     "userSettings": "User settings",
@@ -45,6 +46,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "editSocial": "Edit Social",
-    "areYouSure":"Are you sure?"
+    "areYouSure":"Are you sure?",
+    "duplicate":"Duplicate"
   }
 }

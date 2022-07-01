@@ -9,6 +9,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CardActions from '@mui/material/CardActions';
 import Button from "@mui/material/Button";
 import { useForm, Controller } from 'react-hook-form';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 import { getTitle, getAllTitle } from "../../helper/getTitle";
 import GenerateIcon from "../icon/GenerateIcon";
@@ -16,6 +18,13 @@ import { addUserSettings, editUserSettings } from "../../api/userSettings";
 import { UserSettingType } from "../../helper/api/userSettingsRepo";
 import { useDispatch } from "../../context/socialDispatcherContext";
 import { createSocial, editSocial } from "../../stateManager/actionCreator";
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 type optionType = {
   label: string;
@@ -60,6 +69,16 @@ function AddSocial({ onShowAddSocial, socialItem }: AddSocialProps) {
     }
   }, []);
 
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
   const onSubmit = (data: FormValues) => {
     const socialData: UserSettingType = {
       id: socialItem ? socialItem.id : "0",
@@ -80,6 +99,10 @@ function AddSocial({ onShowAddSocial, socialItem }: AddSocialProps) {
     addUserSettings(socialData).then(data => {
       dispatch(createSocial());
       resetForm();
+    }).catch(err => {
+      if (err.data.message === "duplicate-keys") {
+        setOpenSnackbar(true);
+      }
     });
   }
 
@@ -241,6 +264,11 @@ function AddSocial({ onShowAddSocial, socialItem }: AddSocialProps) {
           {` ${getTitle(socialItem ? "editSocial" : "submitSocial")} ${getTitle(socialType?.label)}`}
         </Button>
       </Box>
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {getTitle("duplicate")}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 }

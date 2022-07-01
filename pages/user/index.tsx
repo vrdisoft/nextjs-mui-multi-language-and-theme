@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import type { NextPage } from "next";
 import { useRouter, NextRouter } from "next/router";
 
-const Home: NextPage = () => {
+const User: NextPage = () => {
   const router: NextRouter = useRouter();
   const { pathname } = router;
   useEffect(() => {
@@ -16,4 +16,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default User
