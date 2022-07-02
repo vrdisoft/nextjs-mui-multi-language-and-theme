@@ -2,15 +2,20 @@ import * as React from "react";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Link from "next/link";
+import { useRouter, NextRouter } from "next/router";
 
 import { getRoute } from "../../route/routes";
-import { getTitle } from "../../helper/getTitle";
+import { getTitleLocale } from "../../helper/getTitle";
 import { getLocaleAndPath } from "../../helper/getLocaleAndPath";
 
 function CustomBreadcrumbs() {
   const { pathname } = getLocaleAndPath();
 
   const genrateBreadcrumbs = () => {
+    const router: NextRouter = useRouter();
+    const { locale, pathname } = router;
+    const currentLocale = locale ?? "fa";
+
     const currentRoute = getRoute(pathname);
     const elements = currentRoute.breadcrumbs.map((path) => {
       const breadcrumbRoute = getRoute(path);
@@ -20,7 +25,7 @@ function CustomBreadcrumbs() {
           key={breadcrumbRoute.path}
         >
           <a style={{ color: "rgb(121, 131, 142)" }}>
-            {getTitle(breadcrumbRoute.title)}
+            {getTitleLocale(breadcrumbRoute.title, currentLocale)}
           </a>
         </Link>
       )
@@ -36,7 +41,7 @@ function CustomBreadcrumbs() {
         }}
         key={currentRoute.path}
       >
-        {getTitle(currentRoute.title)}
+        {getTitleLocale(currentRoute.title, currentLocale)}
       </Typography>
     )
     return elements;

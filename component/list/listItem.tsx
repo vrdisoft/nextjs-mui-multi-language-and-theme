@@ -1,14 +1,12 @@
 import * as React from "react";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Collapse from "@mui/material/Collapse";
 import Modal from "@mui/material/Modal";
-import CardActions from '@mui/material/CardActions';
 import Button from "@mui/material/Button";
-import { useForm, Controller } from 'react-hook-form';
+import Link from "next/link";
 
 import { getTitle, getAllTitle } from "../../helper/getTitle";
 import GenerateIcon from "../icon/GenerateIcon";
