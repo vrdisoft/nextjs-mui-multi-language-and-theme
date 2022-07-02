@@ -17,6 +17,7 @@ import GenerateIcon from "../icon/GenerateIcon";
 import { addUserSettings, editUserSettings } from "../../api/userSettings";
 import { UserSettingType } from "../../helper/api/userSettingsRepo";
 import { useDispatch } from "../../context/socialDispatcherContext";
+import { useAppState } from "../../context/socialStateContext";
 import { createSocial, editSocial } from "../../stateManager/actionCreator";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -59,6 +60,7 @@ function AddSocial({ onShowAddSocial, socialItem }: AddSocialProps) {
     { label: "Website", icon: "Public" },
   ]).current;
   const dispatch = useDispatch();
+  const appState = useAppState();
   const allTitle = getAllTitle();
   const { handleSubmit, control, formState, reset } = useForm<FormValues>({ mode: "onChange", reValidateMode: "onSubmit" });
 
@@ -67,7 +69,7 @@ function AddSocial({ onShowAddSocial, socialItem }: AddSocialProps) {
       reset({ link: socialItem.url, type: { label: socialItem.social, icon: socialItem.social } });
       setSocialType({ label: socialItem.social, icon: socialItem.social });
     }
-  }, []);
+  }, [appState.reloadEditSocials]);
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 

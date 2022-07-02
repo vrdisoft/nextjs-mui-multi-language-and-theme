@@ -13,7 +13,7 @@ import GenerateIcon from "../icon/GenerateIcon";
 import { deletUserSettings } from "../../api/userSettings";
 import AddSocial from "../userSettings/addSocial";
 import { useDispatch } from "../../context/socialDispatcherContext";
-import { deleteSocial } from "../../stateManager/actionCreator";
+import { deleteSocial, reloadEditSocial } from "../../stateManager/actionCreator";
 
 export type ListItemType = {
   id: string;
@@ -29,6 +29,7 @@ function ListItem({ item }: ListItemProps) {
   const dispatch = useDispatch();
   const [showEditSocial, setShowEditSocial] = React.useState(false);
   const onClickEditSocial = () => {
+    dispatch(reloadEditSocial());
     setShowEditSocial(true);
   }
   const [openModal, setOpenModal] = React.useState(false);

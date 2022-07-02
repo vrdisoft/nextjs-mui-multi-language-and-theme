@@ -15,7 +15,7 @@ type Props = {
 const ProviderStateSocial: React.FC<Props> = ({ state, ...rest }) => {
   const appState = React.useMemo(
     () => state,
-    [state.reload]
+    [state.reload,state.reloadEditSocials]
   );
   return <AppStateContext.Provider value={appState} {...rest} />;
 };

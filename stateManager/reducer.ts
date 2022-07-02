@@ -1,7 +1,9 @@
+import { FlashOnRounded } from "@material-ui/icons";
 import { ACTIONS } from "./actionCreator";
 
 export type AppStateType = {
   reload: boolean;
+  reloadEditSocials: boolean;
 };
 
 export type ActinType = {
@@ -11,6 +13,7 @@ export type ActinType = {
 
 export const INIT_STATE: AppStateType = {
   reload: false,
+  reloadEditSocials: false,
 };
 
 function handleDeleteSocials(state: AppStateType, payload: any) {
@@ -34,10 +37,18 @@ function handleEditSocials(state: AppStateType, payload: any) {
   };
 }
 
+function handleReloadEditSocials(state: AppStateType, payload: any) {
+  return {
+    ...state,
+    reloadEditSocials: !state.reloadEditSocials,
+  };
+}
+
 const ACTION_HANDLERS = {
   [ACTIONS.DELETE_SOCIALS]: handleDeleteSocials,
   [ACTIONS.CREATE_SOCIALS]: handleCreateSocials,
   [ACTIONS.EDIT_SOCIALS]: handleEditSocials,
+  [ACTIONS.RELOAD_EDIT_SOCIALS]: handleReloadEditSocials,
 };
 
 export function reducer(state: AppStateType, action: ActinType) {

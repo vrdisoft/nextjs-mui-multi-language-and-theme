@@ -2,6 +2,7 @@ export const ACTIONS = {
   DELETE_SOCIALS: "DELETE_SOCIALS",
   CREATE_SOCIALS: "CREATE_SOCIALS",
   EDIT_SOCIALS: "EDIT_SOCIALS",
+  RELOAD_EDIT_SOCIALS: "RELOAD_EDIT_SOCIALS",
 };
 
 export const deleteSocial = (data?: any) => ({
@@ -16,5 +17,10 @@ export const createSocial = (data?: any) => ({
 
 export const editSocial = (data?: any) => ({
   type: ACTIONS.EDIT_SOCIALS,
+  payload: data,
+});
+
+export const reloadEditSocial = (data?: any) => ({
+  type: ACTIONS.RELOAD_EDIT_SOCIALS,
   payload: data,
 });
