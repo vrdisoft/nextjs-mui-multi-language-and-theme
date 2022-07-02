@@ -13,7 +13,9 @@ const Home: NextPage = () => {
   }, [pathname]);
 
   return (
-    <div>
+    <div style={{
+      marginTop: "30px"
+    }}>
       <Link
         href="/profile/settings"
       >
